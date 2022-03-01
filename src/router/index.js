@@ -4,6 +4,16 @@ import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
 
 export const routes = {
+    no_match: {
+        id: 'no_match',
+        path: '*',
+        name: 'Not Found',
+        isPublic: true,
+        exact: true,
+        isStatic: true,
+        isRestricted: false,
+        element: NotFound,
+    },
     index: {
         id: 'index',
         path: '/',
@@ -44,14 +54,4 @@ export const routes = {
         isRestricted: false,
         element: Signup,
     },
-    no_match: {
-        id: 'no_match',
-        path: '*',
-        name: 'Not Found',
-        isPublic: true,
-        exact: true,
-        isStatic: true,
-        isRestricted: false,
-        element: NotFound,
-    }
 }
