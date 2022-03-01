@@ -12,7 +12,7 @@ export const routes = {
         exact: true,
         isRestricted: false,
         isStatic: false,
-        component: Home,
+        element: Home,
     },
     home: {
         id: 'home',

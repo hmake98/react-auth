@@ -4,13 +4,12 @@ import { Navigate, Route } from 'react-router-dom';
 import { routes } from '.';
 import { useAuth } from '../utils';
 
-const PrivateRoute = ({ element, path }) => {
+const PrivateRoute = ({ element: Element }) => {
     const isLogin = useAuth();
-    console.log(path);
     if (!isLogin) {
         return <Navigate to={routes.login.path} />
     }
-    return <Route path={path} element={element} />
+    return <Element />
 };
 
 export default PrivateRoute;
