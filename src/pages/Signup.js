@@ -7,21 +7,14 @@ import {
   Button,
   InputGroup,
   Stack,
-  InputLeftElement,
-  chakra,
   Box,
   Link,
-  // Avatar,
   FormControl,
-  FormHelperText,
   InputRightElement,
+  Divider,
 } from "@chakra-ui/react"
-import { FaUserAlt, FaLock } from "react-icons/fa"
 import { useNavigate } from "react-router-dom"
 import { routes } from "../router"
-
-const CFaUserAlt = chakra(FaUserAlt)
-const CFaLock = chakra(FaLock)
 
 function Signup() {
   const navigate = useNavigate()
@@ -43,9 +36,9 @@ function Signup() {
         justifyContent="center"
         alignItems="center"
       >
-        {/* <Avatar bg="teal.500" /> */}
         <Heading color="teal.400">Sign Up</Heading>
-        <Box minW={{ base: "90%", md: "468px" }}>
+        <Divider pt={10} />
+        <Box minW={{ base: "90%", md: "350px" }}>
           <form>
             <Stack
               spacing={4}
@@ -53,6 +46,11 @@ function Signup() {
               backgroundColor="whiteAlpha.900"
               boxShadow="md"
             >
+              <FormControl>
+                <InputGroup>
+                  <Input type="text" placeholder="Username" />
+                </InputGroup>
+              </FormControl>
               <FormControl>
                 <InputGroup>
                   <Input type="text" placeholder="First name" />
@@ -65,17 +63,11 @@ function Signup() {
               </FormControl>
               <FormControl>
                 <InputGroup>
-                  <InputLeftElement pointerEvents="none">
-                    <CFaUserAlt color="gray.300" />
-                  </InputLeftElement>
                   <Input type="email" placeholder="Email address" />
                 </InputGroup>
               </FormControl>
               <FormControl>
                 <InputGroup>
-                  <InputLeftElement pointerEvents="none" color="gray.300">
-                    <CFaLock color="gray.300" />
-                  </InputLeftElement>
                   <Input
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
@@ -86,18 +78,23 @@ function Signup() {
                     </Button>
                   </InputRightElement>
                 </InputGroup>
-                <FormHelperText textAlign="right">
-                  <Link>forgot password?</Link>
-                </FormHelperText>
+              </FormControl>
+              <FormControl>
+                <InputGroup>
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Confirm Password"
+                  />
+                </InputGroup>
               </FormControl>
               <Button
                 borderRadius={0}
-                type="submit"
+                type="button"
                 variant="solid"
                 colorScheme="teal"
                 width="full"
               >
-                Singup
+                Sing Up
               </Button>
             </Stack>
           </form>

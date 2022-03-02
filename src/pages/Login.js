@@ -11,22 +11,40 @@ import {
   chakra,
   Box,
   Link,
-  // Avatar,
   FormControl,
   FormHelperText,
   InputRightElement,
+  Divider,
+  FormErrorMessage,
 } from "@chakra-ui/react"
 import { FaUserAlt, FaLock } from "react-icons/fa"
 import { routes } from "../router"
 import { useNavigate } from "react-router-dom"
+import { useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+import { emailRegex } from "./../constants/index"
 
 const CFaUserAlt = chakra(FaUserAlt)
 const CFaLock = chakra(FaLock)
 
+const schema = yup
+  .object({
+    email: yup.string().email("Email is invalid").required("Email is required"),
+    password: yup.string().required("Password is Required"),
+  })
+  .required()
+
 function Login() {
   const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) })
   const handleShowClick = () => setShowPassword(!showPassword)
+  const onSubmit = (data) => console.log(data)
 
   return (
     <Flex
@@ -39,13 +57,13 @@ function Login() {
     >
       <Stack
         flexDir="column"
-        mb="2"
+        mb="4"
         justifyContent="center"
         alignItems="center"
       >
-        {/* <Avatar bg="teal.500" /> */}
         <Heading color="teal.400">Welcome</Heading>
-        <Box minW={{ base: "90%", md: "468px" }}>
+        <Divider pt={10} />
+        <Box minW={{ base: "90%", md: "350px" }}>
           <form>
             <Stack
               spacing={4}
@@ -53,15 +71,25 @@ function Login() {
               backgroundColor="whiteAlpha.900"
               boxShadow="md"
             >
-              <FormControl>
+              <FormControl isInvalid={errors.email}>
                 <InputGroup>
                   <InputLeftElement pointerEvents="none">
                     <CFaUserAlt color="gray.300" />
                   </InputLeftElement>
-                  <Input type="email" placeholder="Email address" />
+                  <Input
+                    type="email"
+                    placeholder="Email address"
+                    {...register("email", {
+                      required: true,
+                      pattern: emailRegex,
+                    })}
+                  />
                 </InputGroup>
+                {errors.email && (
+                  <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
+                )}
               </FormControl>
-              <FormControl>
+              <FormControl isInvalid={errors.password}>
                 <InputGroup>
                   <InputLeftElement pointerEvents="none" color="gray.300">
                     <CFaLock color="gray.300" />
@@ -69,6 +97,9 @@ function Login() {
                   <Input
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
+                    {...register("password", {
+                      required: true,
+                    })}
                   />
                   <InputRightElement width="4.5rem">
                     <Button h="1.75rem" size="sm" onClick={handleShowClick}>
@@ -76,18 +107,26 @@ function Login() {
                     </Button>
                   </InputRightElement>
                 </InputGroup>
+                {errors.password && (
+                  <FormErrorMessage>
+                    {errors.password?.message}
+                  </FormErrorMessage>
+                )}
                 <FormHelperText textAlign="right">
-                  <Link>forgot password?</Link>
+                  <Link onClick={() => navigate(routes.forgot_password.path)}>
+                    forgot password?
+                  </Link>
                 </FormHelperText>
               </FormControl>
               <Button
                 borderRadius={0}
-                type="submit"
+                type="button"
                 variant="solid"
                 colorScheme="teal"
                 width="full"
+                onClick={handleSubmit(onSubmit)}
               >
-                Login
+                Log In
               </Button>
             </Stack>
           </form>

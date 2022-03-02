@@ -2,6 +2,7 @@ import Signup from "../pages/Signup"
 import Login from "../pages/Login"
 import Home from "../pages/Home"
 import NotFound from "../pages/NotFound"
+import ForgotPassword from "./../pages/ForgotPassword"
 
 export const routes = {
   no_match: {
@@ -53,5 +54,15 @@ export const routes = {
     isStatic: false,
     isRestricted: false,
     element: Signup,
+  },
+  forgot_password: {
+    id: "forgot_password",
+    path: "/forgot-password",
+    name: "Forgot Password",
+    isPublic: true,
+    exact: true,
+    isStatic: false,
+    isRestricted: false,
+    element: ForgotPassword,
   },
 }
