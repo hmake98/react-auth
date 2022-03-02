@@ -1,9 +1,21 @@
-import '../styles/NotFound.css';
+import { Text } from "@chakra-ui/react"
+import React from "react"
+import "../styles/NotFound.css"
 
 function NotFound() {
-    return (
-        <h1> Not found </h1>
-    );
+  return (
+    <div>
+      <Text
+        color="gray.600"
+        isTruncated
+        fontSize={"4xl"}
+        textAlign={"center"}
+        mt={"20"}
+      >
+        Page not found!
+      </Text>
+    </div>
+  )
 }
 
-export default NotFound;
+export default NotFound

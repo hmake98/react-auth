@@ -1,45 +1,116 @@
-import '../styles/Signup.css';
-import { Box, Button, Flex, FormControl, FormLabel, Heading, Input, Link, Text } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
-import { routes } from '../router';
+import "../styles/Signup.css"
+import React, { useState } from "react"
+import {
+  Flex,
+  Heading,
+  Input,
+  Button,
+  InputGroup,
+  Stack,
+  InputLeftElement,
+  chakra,
+  Box,
+  Link,
+  // Avatar,
+  FormControl,
+  FormHelperText,
+  InputRightElement,
+} from "@chakra-ui/react"
+import { FaUserAlt, FaLock } from "react-icons/fa"
+import { useNavigate } from "react-router-dom"
+import { routes } from "../router"
+
+const CFaUserAlt = chakra(FaUserAlt)
+const CFaLock = chakra(FaLock)
 
 function Signup() {
-    const navigate = useNavigate();
-    return (
-        <Flex width="full" align="center" justifyContent="center">
-            <Box p={2}>
-                <Box textAlign="center">
-                    <Heading>Sign Up</Heading>
-                </Box>
-                <Box my={4} textAlign="left">
-                    <form>
-                        <FormControl isRequired>
-                            <FormLabel>First Name</FormLabel>
-                            <Input type="firstname" placeholder="First Name" />
-                        </FormControl>
-                        <FormControl mt={6} isRequired>
-                            <FormLabel>Last Name</FormLabel>
-                            <Input type="lastname" placeholder="Last Name" />
-                        </FormControl>
-                        <FormControl mt={6} isRequired>
-                            <FormLabel>Email</FormLabel>
-                            <Input type="email" placeholder="Email" />
-                        </FormControl>
-                        <FormControl mt={6} isRequired>
-                            <FormLabel>Password</FormLabel>
-                            <Input type="password" placeholder="Password" />
-                        </FormControl>
-                        <Button width="full" mt={4} type="submit" colorScheme='blue'>
-                            Sign Up
-                        </Button>
-                        <Box mt={4}>
-                            <Text> Already a user?  <Link onClick={() => navigate(routes.login.path)}>Log In</Link> </Text>
-                        </Box>
-                    </form>
-                </Box>
-            </Box>
-        </Flex>
-    )
+  const navigate = useNavigate()
+  const [showPassword, setShowPassword] = useState(false)
+  const handleShowClick = () => setShowPassword(!showPassword)
+
+  return (
+    <Flex
+      flexDirection="column"
+      width="100wh"
+      height="100vh"
+      backgroundColor="gray.200"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Stack
+        flexDir="column"
+        mb="2"
+        justifyContent="center"
+        alignItems="center"
+      >
+        {/* <Avatar bg="teal.500" /> */}
+        <Heading color="teal.400">Sign Up</Heading>
+        <Box minW={{ base: "90%", md: "468px" }}>
+          <form>
+            <Stack
+              spacing={4}
+              p="1rem"
+              backgroundColor="whiteAlpha.900"
+              boxShadow="md"
+            >
+              <FormControl>
+                <InputGroup>
+                  <Input type="text" placeholder="First name" />
+                </InputGroup>
+              </FormControl>
+              <FormControl>
+                <InputGroup>
+                  <Input type="text" placeholder="Last name" />
+                </InputGroup>
+              </FormControl>
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement pointerEvents="none">
+                    <CFaUserAlt color="gray.300" />
+                  </InputLeftElement>
+                  <Input type="email" placeholder="Email address" />
+                </InputGroup>
+              </FormControl>
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement pointerEvents="none" color="gray.300">
+                    <CFaLock color="gray.300" />
+                  </InputLeftElement>
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                  />
+                  <InputRightElement width="4.5rem">
+                    <Button h="1.75rem" size="sm" onClick={handleShowClick}>
+                      {showPassword ? "Hide" : "Show"}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+                <FormHelperText textAlign="right">
+                  <Link>forgot password?</Link>
+                </FormHelperText>
+              </FormControl>
+              <Button
+                borderRadius={0}
+                type="submit"
+                variant="solid"
+                colorScheme="teal"
+                width="full"
+              >
+                Singup
+              </Button>
+            </Stack>
+          </form>
+        </Box>
+      </Stack>
+      <Box>
+        Already a user?{" "}
+        <Link color="teal.500" onClick={() => navigate(routes.login.path)}>
+          Log In
+        </Link>
+      </Box>
+    </Flex>
+  )
 }
 
-export default Signup;
+export default Signup

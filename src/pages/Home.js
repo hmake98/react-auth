@@ -1,9 +1,8 @@
-import '../styles/Home.css';
+import React from "react"
+import "../styles/Home.css"
 
 function Home() {
-    return (
-        <h1> Home works </h1> 
-    )
+  return <h1> Home works </h1>
 }
 
-export default Home;
+export default Home
