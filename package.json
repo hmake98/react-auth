@@ -17,14 +17,15 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "pre-commit": "lint-staged",
+    "pre-commit": "lint-staged && pretty-quick --staged",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./",
     "lint-fix": "eslint ./ --fix",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\""
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -40,11 +41,6 @@
     "*.+(json|css|md)": [
       "prettier --write"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && pretty-quick --staged"
-    }
   },
   "browserslist": {
     "production": [
@@ -63,7 +59,7 @@
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.2",
-    "husky": "^6.0.0",
+    "husky": "^7.0.0",
     "lint-staged": "^12.3.4",
     "prettier": "^2.5.1",
     "pretty-quick": "^2.0.1"
