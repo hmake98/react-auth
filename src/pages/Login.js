@@ -44,7 +44,10 @@ function Login() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) })
   const handleShowClick = () => setShowPassword(!showPassword)
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = () => {
+    localStorage.setItem("isLoggedIn", true)
+    navigate(routes.home.path)
+  }
 
   return (
     <Flex

@@ -5,7 +5,6 @@ import { useAuth } from "../utils/index"
 
 const PublicRoute = ({ isRestricted, element: Element }) => {
   const isLogin = useAuth()
-  console.log({ isLogin })
   if (isLogin || isRestricted) {
     return <Navigate to={routes.home.path} />
   }
