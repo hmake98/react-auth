@@ -3,11 +3,12 @@ import React from "react"
 import { useNavigate } from "react-router-dom"
 import { routes } from "../router"
 import "../styles/Home.css"
+import Storage from "../services/storage"
 
 function Home() {
   const navigate = useNavigate()
   const handleSubmit = () => {
-    localStorage.clear()
+    Storage.clear()
     navigate(routes.login.path)
   }
   return (
@@ -19,7 +20,7 @@ function Home() {
         variant="solid"
         colorScheme="teal"
         width="fit-content"
-        onClick={handleSubmit()}
+        onClick={handleSubmit}
       >
         Log Out
       </Button>

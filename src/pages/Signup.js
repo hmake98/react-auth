@@ -5,7 +5,6 @@ import {
   Heading,
   Input,
   Button,
-  InputGroup,
   Stack,
   Box,
   Link,
@@ -15,11 +14,37 @@ import {
 } from "@chakra-ui/react"
 import { useNavigate } from "react-router-dom"
 import { routes } from "../router"
+import Storage from "../services/storage"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { useForm } from "react-hook-form"
+import { usernameRegex, emailRegex } from "../constants/index"
+import * as yup from "yup"
+
+const schema = yup
+  .object({
+    username: yup.string().required("Username is required"),
+    email: yup.string(),
+    firstname: yup.string(),
+    lastname: yup.string(),
+    password: yup.string().required("Password is requried"),
+    confirmpassword: yup.string().required("Confirm password is required"),
+  })
+  .required()
 
 function Signup() {
   const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
   const handleShowClick = () => setShowPassword(!showPassword)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) })
+  const onSubmit = (data) => {
+    console.log(data)
+    Storage.set("isLoggedIn", true)
+    navigate(routes.home.path)
+  }
 
   return (
     <Flex
@@ -46,46 +71,66 @@ function Signup() {
               backgroundColor="whiteAlpha.900"
               boxShadow="md"
             >
-              <FormControl>
-                <InputGroup>
-                  <Input type="text" placeholder="Username" />
-                </InputGroup>
+              <FormControl isInvalid={errors.email}>
+                <Input
+                  type="text"
+                  placeholder="Username"
+                  {...register("username", {
+                    required: true,
+                    pattern: usernameRegex,
+                  })}
+                />
               </FormControl>
               <FormControl>
-                <InputGroup>
-                  <Input type="text" placeholder="First name" />
-                </InputGroup>
+                <Input
+                  type="text"
+                  placeholder="First name"
+                  {...register("firstname", {
+                    required: false,
+                  })}
+                />
               </FormControl>
               <FormControl>
-                <InputGroup>
-                  <Input type="text" placeholder="Last name" />
-                </InputGroup>
+                <Input
+                  type="text"
+                  placeholder="Last name"
+                  {...register("lastname", {
+                    required: false,
+                  })}
+                />
               </FormControl>
               <FormControl>
-                <InputGroup>
-                  <Input type="email" placeholder="Email address" />
-                </InputGroup>
+                <Input
+                  type="email"
+                  placeholder="Email"
+                  {...register("email", {
+                    required: false,
+                    pattern: emailRegex,
+                  })}
+                />
               </FormControl>
               <FormControl>
-                <InputGroup>
-                  <Input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Password"
-                  />
-                  <InputRightElement width="4.5rem">
-                    <Button h="1.75rem" size="sm" onClick={handleShowClick}>
-                      {showPassword ? "Hide" : "Show"}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  {...register("password", {
+                    required: true,
+                  })}
+                />
+                <InputRightElement width="4.5rem">
+                  <Button h="1.75rem" size="sm" onClick={handleShowClick}>
+                    {showPassword ? "Hide" : "Show"}
+                  </Button>
+                </InputRightElement>
               </FormControl>
               <FormControl>
-                <InputGroup>
-                  <Input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Confirm Password"
-                  />
-                </InputGroup>
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Confirm Password"
+                  {...register("confirmpassword", {
+                    required: true,
+                  })}
+                />
               </FormControl>
               <Button
                 borderRadius={0}
@@ -93,6 +138,7 @@ function Signup() {
                 variant="solid"
                 colorScheme="teal"
                 width="full"
+                onClick={handleSubmit(onSubmit)}
               >
                 Sing Up
               </Button>

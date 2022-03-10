@@ -3,3 +3,5 @@ export const emailRegex =
 
 export const passwordRegex =
   /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9].*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$/
+
+export const usernameRegex = /^[a-zA-Z-]+$/

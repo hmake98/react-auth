@@ -24,6 +24,7 @@ import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { emailRegex } from "./../constants/index"
+import Storage from "../services/storage"
 
 const CFaUserAlt = chakra(FaUserAlt)
 const CFaLock = chakra(FaLock)
@@ -44,8 +45,9 @@ function Login() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) })
   const handleShowClick = () => setShowPassword(!showPassword)
-  const onSubmit = () => {
-    localStorage.setItem("isLoggedIn", true)
+  const onSubmit = (data) => {
+    console.log(data)
+    Storage.set("isLoggedIn", true)
     navigate(routes.home.path)
   }
 
