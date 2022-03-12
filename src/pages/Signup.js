@@ -11,6 +11,7 @@ import {
   FormControl,
   InputRightElement,
   Divider,
+  InputGroup,
 } from "@chakra-ui/react"
 import { useNavigate } from "react-router-dom"
 import { routes } from "../router"
@@ -110,18 +111,20 @@ function Signup() {
                 />
               </FormControl>
               <FormControl>
-                <Input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Password"
-                  {...register("password", {
-                    required: true,
-                  })}
-                />
-                <InputRightElement width="4.5rem">
-                  <Button h="1.75rem" size="sm" onClick={handleShowClick}>
-                    {showPassword ? "Hide" : "Show"}
-                  </Button>
-                </InputRightElement>
+                <InputGroup>
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    {...register("password", {
+                      required: true,
+                    })}
+                  />
+                  <InputRightElement width="4.5rem">
+                    <Button h="1.75rem" size="sm" onClick={handleShowClick}>
+                      {showPassword ? "Hide" : "Show"}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
               </FormControl>
               <FormControl>
                 <Input
