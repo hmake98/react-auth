@@ -1,5 +1,9 @@
-import "../styles/Signup.css"
-import React, { useState } from "react"
+/* eslint-disable import/no-cycle */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/function-component-definition */
+import "../styles/Signup.css";
+import { ReactElement, useState } from "react";
 import {
   Flex,
   Heading,
@@ -12,40 +16,41 @@ import {
   InputRightElement,
   Divider,
   InputGroup,
-} from "@chakra-ui/react"
-import { useNavigate } from "react-router-dom"
-import { routes } from "../router"
-import Storage from "../services/storage"
-import { yupResolver } from "@hookform/resolvers/yup"
-import { useForm } from "react-hook-form"
-import { usernameRegex, emailRegex } from "../constants/index"
-import * as yup from "yup"
+} from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import routes from "../router";
+import Storage from "../services/storage";
+import { usernameRegex, emailRegex } from "../common/constant";
 
 const schema = yup
   .object({
-    username: yup.string().required("Username is required"),
+    username: yup.string().required("username is required"),
     email: yup.string(),
     firstname: yup.string(),
     lastname: yup.string(),
-    password: yup.string().required("Password is requried"),
-    confirmpassword: yup.string().required("Confirm password is required"),
+    password: yup.string().required("password is requried"),
+    confirmpassword: yup.string().required("confirm password is required"),
   })
-  .required()
+  .required();
 
-function Signup() {
-  const navigate = useNavigate()
-  const [showPassword, setShowPassword] = useState(false)
-  const handleShowClick = () => setShowPassword(!showPassword)
+const Signup: React.FC = (): ReactElement => {
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const handleShowClick = () => setShowPassword(!showPassword);
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) })
-  const onSubmit = (data) => {
-    console.log(data)
-    Storage.set("isLoggedIn", true)
-    navigate(routes.home.path)
-  }
+  } = useForm({ resolver: yupResolver(schema) });
+
+  const onSubmit = () => {
+    const storage = new Storage();
+    storage.set("isLoggedIn", true);
+    navigate(routes.home.path);
+  };
 
   return (
     <Flex
@@ -156,7 +161,7 @@ function Signup() {
         </Link>
       </Box>
     </Flex>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;

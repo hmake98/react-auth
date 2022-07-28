@@ -1,5 +1,9 @@
-import "../styles/Login.css"
-import React, { useState } from "react"
+/* eslint-disable import/no-cycle */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/function-component-definition */
+import "./Login.css";
+import { ReactElement, useState } from "react";
 import {
   Flex,
   Heading,
@@ -16,40 +20,40 @@ import {
   InputRightElement,
   Divider,
   FormErrorMessage,
-} from "@chakra-ui/react"
-import { FaUserAlt, FaLock } from "react-icons/fa"
-import { routes } from "../router"
-import { useNavigate } from "react-router-dom"
-import { useForm } from "react-hook-form"
-import { yupResolver } from "@hookform/resolvers/yup"
-import * as yup from "yup"
-import { emailRegex } from "./../constants/index"
-import Storage from "../services/storage"
+} from "@chakra-ui/react";
+import { FaUserAlt, FaLock } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import routes from "../router";
+import { emailRegex } from "../common/constant";
+import Storage from "../services/storage";
 
-const CFaUserAlt = chakra(FaUserAlt)
-const CFaLock = chakra(FaLock)
+const CFaUserAlt = chakra(FaUserAlt);
+const CFaLock = chakra(FaLock);
 
 const schema = yup
   .object({
-    email: yup.string().email("Email is invalid").required("Email is required"),
-    password: yup.string().required("Password is Required"),
+    email: yup.string().email("email is invalid").required("email is required"),
+    password: yup.string().required("password is Required"),
   })
-  .required()
+  .required();
 
-function Login() {
-  const navigate = useNavigate()
-  const [showPassword, setShowPassword] = useState(false)
+const Login: React.FC = (): ReactElement => {
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) })
-  const handleShowClick = () => setShowPassword(!showPassword)
-  const onSubmit = (data) => {
-    console.log(data)
-    Storage.set("isLoggedIn", true)
-    navigate(routes.home.path)
-  }
+  } = useForm({ resolver: yupResolver(schema) });
+  const handleShowClick = () => setShowPassword(!showPassword);
+  const onSubmit = () => {
+    const storage = new Storage();
+    storage.set("isLoggedIn", true);
+    navigate(routes.home.path);
+  };
 
   return (
     <Flex
@@ -76,7 +80,7 @@ function Login() {
               backgroundColor="whiteAlpha.900"
               boxShadow="md"
             >
-              <FormControl isInvalid={errors.email}>
+              <FormControl invalid={errors.email}>
                 <InputGroup>
                   <InputLeftElement pointerEvents="none">
                     <CFaUserAlt color="gray.300" />
@@ -94,7 +98,7 @@ function Login() {
                   <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
                 )}
               </FormControl>
-              <FormControl isInvalid={errors.password}>
+              <FormControl _invalid={errors.password}>
                 <InputGroup>
                   <InputLeftElement pointerEvents="none" color="gray.300">
                     <CFaLock color="gray.300" />
@@ -144,7 +148,7 @@ function Login() {
         </Link>
       </Box>
     </Flex>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

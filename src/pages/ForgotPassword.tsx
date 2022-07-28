@@ -1,5 +1,5 @@
-import "../styles/ForgotPassword.css"
-import React from "react"
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import "./ForgotPassword.css";
 import {
   Flex,
   Heading,
@@ -13,15 +13,18 @@ import {
   Link,
   FormControl,
   Divider,
-} from "@chakra-ui/react"
-import { FaUserAlt } from "react-icons/fa"
-import { routes } from "../router"
-import { useNavigate } from "react-router-dom"
+} from "@chakra-ui/react";
+import { FaUserAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { ReactElement } from "react";
+// eslint-disable-next-line import/no-cycle
+import routes from "../router";
 
-const CFaUserAlt = chakra(FaUserAlt)
+const CFaUserAlt = chakra(FaUserAlt);
 
-function ForgotPassword() {
-  const navigate = useNavigate()
+// eslint-disable-next-line react/function-component-definition
+const ForgotPassword: React.FC = (): ReactElement => {
+  const navigate = useNavigate();
 
   return (
     <Flex
@@ -76,7 +79,7 @@ function ForgotPassword() {
         </Link>
       </Box>
     </Flex>
-  )
-}
+  );
+};
 
-export default ForgotPassword
+export default ForgotPassword;

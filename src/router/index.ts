@@ -1,10 +1,12 @@
-import Signup from "../pages/Signup"
-import Login from "../pages/Login"
-import Home from "../pages/Home"
-import NotFound from "../pages/NotFound"
-import ForgotPassword from "./../pages/ForgotPassword"
+/* eslint-disable import/no-cycle */
+import Home from "../pages/Home";
+import Signup from "../pages/Signup";
+import ForgotPassword from "../pages/ForgotPassword";
+import Login from "../pages/Login";
+import NotFound from "../pages/NotFound";
+import { Routes } from "../types";
 
-export const routes = {
+const routes: Routes = {
   no_match: {
     id: "no_match",
     path: "*",
@@ -65,4 +67,6 @@ export const routes = {
     isRestricted: false,
     element: ForgotPassword,
   },
-}
+};
+
+export default routes;
