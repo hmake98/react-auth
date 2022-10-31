@@ -1,4 +1,4 @@
-import "./ForgotPassword.scss";
+import "../styles/ForgotPassword.scss";
 import {
   Flex,
   Heading,

@@ -1,4 +1,4 @@
-import Storage from "../services/storage";
+import Storage from "../services/localStorage";
 
 /**
  * @returns `useAuth` returns boolean value if user logged in or not.

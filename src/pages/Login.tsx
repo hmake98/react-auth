@@ -1,4 +1,4 @@
-import "./Login.scss";
+import "../styles/Login.scss";
 import { ReactElement, useState } from "react";
 import {
   Flex,
@@ -23,8 +23,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import routes from "../router";
-import { emailRegex } from "../common/constant";
-import Storage from "../services/storage";
+import { emailRegex } from "../common/utils";
+import Storage from "../services/localStorage";
 
 type FormInputs = {
   email: string;

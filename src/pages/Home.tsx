@@ -1,9 +1,9 @@
-import "./Home.scss";
+import "../styles/Home.scss";
 import { Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { ReactElement } from "react";
 import routes from "../router";
-import Storage from "../services/storage";
+import Storage from "../services/localStorage";
 
 const Home: React.FC = (): ReactElement => {
   const navigate = useNavigate();

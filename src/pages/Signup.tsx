@@ -1,4 +1,4 @@
-import "./Signup.scss";
+import "../styles/Signup.scss";
 import { ReactElement, useState } from "react";
 import {
   Flex,
@@ -19,8 +19,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import routes from "../router";
-import Storage from "../services/storage";
-import { usernameRegex, emailRegex } from "../common/constant";
+import Storage from "../services/localStorage";
+import { usernameRegex, emailRegex } from "../common/utils";
 
 type FormInputs = {
   username: string;

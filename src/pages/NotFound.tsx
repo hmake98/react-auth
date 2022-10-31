@@ -1,4 +1,4 @@
-import "./NotFound.scss";
+import "../styles/NotFound.scss";
 import { Text } from "@chakra-ui/react";
 import { ReactElement } from "react";
 
