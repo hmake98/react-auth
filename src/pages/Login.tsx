@@ -1,8 +1,4 @@
-/* eslint-disable import/no-cycle */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/function-component-definition */
-import "./Login.css";
+import "./Login.scss";
 import { ReactElement, useState } from "react";
 import {
   Flex,
@@ -30,6 +26,11 @@ import routes from "../router";
 import { emailRegex } from "../common/constant";
 import Storage from "../services/storage";
 
+type FormInputs = {
+  email: string;
+  password: string;
+};
+
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
@@ -47,11 +48,11 @@ const Login: React.FC = (): ReactElement => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm<FormInputs>({ resolver: yupResolver(schema) });
   const handleShowClick = () => setShowPassword(!showPassword);
-  const onSubmit = () => {
-    const storage = new Storage();
-    storage.set("isLoggedIn", true);
+  const onSubmit = (data: FormInputs) => {
+    console.log(data);
+    Storage.set("isLoggedIn", true);
     navigate(routes.home.path);
   };
 
@@ -80,7 +81,7 @@ const Login: React.FC = (): ReactElement => {
               backgroundColor="whiteAlpha.900"
               boxShadow="md"
             >
-              <FormControl invalid={errors.email}>
+              <FormControl isInvalid={!!errors.email}>
                 <InputGroup>
                   <InputLeftElement pointerEvents="none">
                     <CFaUserAlt color="gray.300" />
@@ -94,11 +95,11 @@ const Login: React.FC = (): ReactElement => {
                     })}
                   />
                 </InputGroup>
-                {errors.email && (
-                  <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
-                )}
+                <FormErrorMessage>
+                  {errors.email && errors.email.message}
+                </FormErrorMessage>
               </FormControl>
-              <FormControl _invalid={errors.password}>
+              <FormControl isInvalid={!!errors.password}>
                 <InputGroup>
                   <InputLeftElement pointerEvents="none" color="gray.300">
                     <CFaLock color="gray.300" />
@@ -116,11 +117,9 @@ const Login: React.FC = (): ReactElement => {
                     </Button>
                   </InputRightElement>
                 </InputGroup>
-                {errors.password && (
-                  <FormErrorMessage>
-                    {errors.password?.message}
-                  </FormErrorMessage>
-                )}
+                <FormErrorMessage>
+                  {errors.password && errors.password.message}
+                </FormErrorMessage>
                 <FormHelperText textAlign="right">
                   <Link onClick={() => navigate(routes.forgot_password.path)}>
                     forgot password?

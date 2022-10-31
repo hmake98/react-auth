@@ -1,5 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import "./ForgotPassword.css";
+import "./ForgotPassword.scss";
 import {
   Flex,
   Heading,
@@ -17,12 +16,10 @@ import {
 import { FaUserAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { ReactElement } from "react";
-// eslint-disable-next-line import/no-cycle
 import routes from "../router";
 
 const CFaUserAlt = chakra(FaUserAlt);
 
-// eslint-disable-next-line react/function-component-definition
 const ForgotPassword: React.FC = (): ReactElement => {
   const navigate = useNavigate();
 

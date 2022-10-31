@@ -1,17 +1,17 @@
 export default class Storage {
-  set(key: string, data: any): void {
+  static set(key: string, data: any): void {
     localStorage.setItem(key, JSON.stringify(data));
   }
 
-  get(key: string): any {
+  static get(key: string): any {
     return JSON.parse(String(localStorage.getItem(key)));
   }
 
-  remove(key: string): void {
+  static remove(key: string): void {
     localStorage.removeItem(key);
   }
 
-  clear(): void {
+  static clear(): void {
     localStorage.clear();
   }
 }

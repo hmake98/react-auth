@@ -4,8 +4,7 @@ import Storage from "../services/storage";
  * @returns `useAuth` returns boolean value if user logged in or not.
  */
 function useAuth(): boolean {
-  const storage = new Storage();
-  const isLoggedIn = storage.get("isLoggedIn");
+  const isLoggedIn = Storage.get("isLoggedIn");
   return isLoggedIn;
 }
 

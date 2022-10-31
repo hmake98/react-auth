@@ -3,6 +3,7 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import PrivateRoute from "./router/Private";
 import PublicRoute from "./router/Public";
 import routes from "./router/index";
+import "./App.scss";
 
 const colors = {
   brand: {
@@ -14,7 +15,7 @@ const colors = {
 
 const theme = extendTheme({ colors });
 
-function App() {
+const App = () => {
   return (
     <ChakraProvider theme={theme}>
       <BrowserRouter>
@@ -30,10 +31,8 @@ function App() {
                 path={path}
                 element={
                   isPublic ? (
-                    // eslint-disable-next-line react/jsx-props-no-spreading
                     <PublicRoute {...value} key={key} />
                   ) : (
-                    // eslint-disable-next-line react/jsx-props-no-spreading
                     <PrivateRoute {...value} key={key} />
                   )
                 }
@@ -45,6 +44,6 @@ function App() {
       </BrowserRouter>
     </ChakraProvider>
   );
-}
+};
 
 export default App;

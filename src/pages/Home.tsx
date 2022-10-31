@@ -1,18 +1,15 @@
-import "./Home.css";
+import "./Home.scss";
 import { Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { ReactElement } from "react";
-// eslint-disable-next-line import/no-cycle
 import routes from "../router";
 import Storage from "../services/storage";
 
-// eslint-disable-next-line react/function-component-definition
 const Home: React.FC = (): ReactElement => {
   const navigate = useNavigate();
-  const storage = new Storage();
 
   const handleSubmit = (): void => {
-    storage.clear();
+    Storage.clear();
     navigate(routes.login.path);
   };
 

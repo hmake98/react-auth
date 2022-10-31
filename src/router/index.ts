@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import Home from "../pages/Home";
 import Signup from "../pages/Signup";
 import ForgotPassword from "../pages/ForgotPassword";

@@ -1,8 +1,4 @@
-/* eslint-disable import/no-cycle */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/function-component-definition */
-import "../styles/Signup.css";
+import "./Signup.scss";
 import { ReactElement, useState } from "react";
 import {
   Flex,
@@ -16,6 +12,7 @@ import {
   InputRightElement,
   Divider,
   InputGroup,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -24,6 +21,15 @@ import * as yup from "yup";
 import routes from "../router";
 import Storage from "../services/storage";
 import { usernameRegex, emailRegex } from "../common/constant";
+
+type FormInputs = {
+  username: string;
+  email: string;
+  firstname: string;
+  lastname: string;
+  password: string;
+  confirmpassword: string;
+};
 
 const schema = yup
   .object({
@@ -44,11 +50,11 @@ const Signup: React.FC = (): ReactElement => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm<FormInputs>({ resolver: yupResolver(schema) });
 
-  const onSubmit = () => {
-    const storage = new Storage();
-    storage.set("isLoggedIn", true);
+  const onSubmit = (data: FormInputs) => {
+    console.log(data);
+    Storage.set("isLoggedIn", true);
     navigate(routes.home.path);
   };
 
@@ -77,7 +83,7 @@ const Signup: React.FC = (): ReactElement => {
               backgroundColor="whiteAlpha.900"
               boxShadow="md"
             >
-              <FormControl isInvalid={errors.email}>
+              <FormControl isInvalid={!!errors.username}>
                 <Input
                   type="text"
                   placeholder="Username"
@@ -86,8 +92,11 @@ const Signup: React.FC = (): ReactElement => {
                     pattern: usernameRegex,
                   })}
                 />
+                <FormErrorMessage>
+                  {errors.username && errors.username.message}
+                </FormErrorMessage>
               </FormControl>
-              <FormControl>
+              <FormControl isInvalid={!!errors.firstname}>
                 <Input
                   type="text"
                   placeholder="First name"
@@ -95,8 +104,11 @@ const Signup: React.FC = (): ReactElement => {
                     required: false,
                   })}
                 />
+                <FormErrorMessage>
+                  {errors.firstname && errors.firstname.message}
+                </FormErrorMessage>
               </FormControl>
-              <FormControl>
+              <FormControl isInvalid={!!errors.lastname}>
                 <Input
                   type="text"
                   placeholder="Last name"
@@ -104,8 +116,11 @@ const Signup: React.FC = (): ReactElement => {
                     required: false,
                   })}
                 />
+                <FormErrorMessage>
+                  {errors.lastname && errors.lastname.message}
+                </FormErrorMessage>
               </FormControl>
-              <FormControl>
+              <FormControl isInvalid={!!errors.email}>
                 <Input
                   type="email"
                   placeholder="Email"
@@ -114,8 +129,11 @@ const Signup: React.FC = (): ReactElement => {
                     pattern: emailRegex,
                   })}
                 />
+                <FormErrorMessage>
+                  {errors.email && errors.email.message}
+                </FormErrorMessage>
               </FormControl>
-              <FormControl>
+              <FormControl isInvalid={!!errors.password}>
                 <InputGroup>
                   <Input
                     type={showPassword ? "text" : "password"}
@@ -130,8 +148,11 @@ const Signup: React.FC = (): ReactElement => {
                     </Button>
                   </InputRightElement>
                 </InputGroup>
+                <FormErrorMessage>
+                  {errors.password && errors.password.message}
+                </FormErrorMessage>
               </FormControl>
-              <FormControl>
+              <FormControl isInvalid={!!errors.confirmpassword}>
                 <Input
                   type={showPassword ? "text" : "password"}
                   placeholder="Confirm Password"
@@ -139,6 +160,9 @@ const Signup: React.FC = (): ReactElement => {
                     required: true,
                   })}
                 />
+                <FormErrorMessage>
+                  {errors.confirmpassword && errors.confirmpassword.message}
+                </FormErrorMessage>
               </FormControl>
               <Button
                 borderRadius={0}
